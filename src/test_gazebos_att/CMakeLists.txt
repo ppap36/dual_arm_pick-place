@@ -170,6 +170,7 @@ add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS})
 ## in contrast to setup.py, you can choose the destination
 catkin_install_python(PROGRAMS
    scripts/arms_pp.py
+   scripts/spawn_models.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 
