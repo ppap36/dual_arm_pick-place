@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.0.2)
-project(test_gazebos_att)
+cmake_minimum_required(VERSION 2.8.3)
+project(marm_description)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -8,16 +8,10 @@ project(test_gazebos_att)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-roscpp
-rospy
-std_msgs
-moveit_ros_planning_interface
-std_msgs
-message_generation
-gazebo_msgs
-gazebo_plugins
-gazebo_ros
-gazebo_ros_control
+  roscpp
+  tf
+  urdf
+  xacro
 )
 
 ## System dependencies are found with CMake's conventions
@@ -39,10 +33,10 @@ gazebo_ros_control
 ##   your messages/services/actions (e.g. std_msgs, actionlib_msgs, ...).
 ## * In the file package.xml:
 ##   * add a build_depend tag for "message_generation"
-##   * add a build_depend and a exec_depend tag for each package in MSG_DEP_SET
+##   * add a build_depend and a run_depend tag for each package in MSG_DEP_SET
 ##   * If MSG_DEP_SET isn't empty the following dependency has been pulled in
 ##     but can be declared for certainty nonetheless:
-##     * add a exec_depend tag for "message_runtime"
+##     * add a run_depend tag for "message_runtime"
 ## * In this file (CMakeLists.txt):
 ##   * add "message_generation" and every package in MSG_DEP_SET to
 ##     find_package(catkin REQUIRED COMPONENTS ...)
@@ -66,12 +60,6 @@ gazebo_ros_control
 #   Service1.srv
 #   Service2.srv
 # )
-find_package(gazebo REQUIRED)
-## Generate services in the 'srv' folder
-add_service_files(
-  FILES
-  Attach.srv
-)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -81,10 +69,10 @@ add_service_files(
 # )
 
 ## Generate added messages and services with any dependencies listed here
-generate_messages(
-  DEPENDENCIES
-  std_msgs
-)
+# generate_messages(
+#   DEPENDENCIES
+#   std_msgs  # Or other packages containing msgs
+# )
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -93,7 +81,7 @@ generate_messages(
 ## To declare and build dynamic reconfigure parameters within this
 ## package, follow these steps:
 ## * In the file package.xml:
-##   * add a build_depend and a exec_depend tag for "dynamic_reconfigure"
+##   * add a build_depend and a run_depend tag for "dynamic_reconfigure"
 ## * In this file (CMakeLists.txt):
 ##   * add "dynamic_reconfigure" to
 ##     find_package(catkin REQUIRED COMPONENTS ...)
@@ -111,28 +99,33 @@ generate_messages(
 ###################################
 ## The catkin_package macro generates cmake config files for your package
 ## Declare things to be passed to dependent projects
-## INCLUDE_DIRS: uncomment this if your package contains header files
+## INCLUDE_DIRS: uncomment this if you package contains header files
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
+catkin_package(
+#  INCLUDE_DIRS include
+#  LIBRARIES marm_description
+#  CATKIN_DEPENDS roscpp tf urdf xacro
+#  DEPENDS system_lib
+)
 
-catkin_package(CATKIN_DEPENDS message_runtime)
 ###########
 ## Build ##
 ###########
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-include_directories(include)
-link_directories(${GAZEBO_LIBRARY_DIRS})
-include_directories(${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS} ${GAZEBO_INCLUDE_DIRS})
-
+include_directories(
+# include
+  ${catkin_INCLUDE_DIRS}
+)
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/test_gazebo_att.cpp
+#   src/${PROJECT_NAME}/marm_description.cpp
 # )
-add_library(${PROJECT_NAME} src/test_gazebos_att.cpp)
+
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
@@ -141,7 +134,7 @@ add_library(${PROJECT_NAME} src/test_gazebos_att.cpp)
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/test_gazebo_att_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/marm_description_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -157,8 +150,7 @@ add_library(${PROJECT_NAME} src/test_gazebos_att.cpp)
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
-target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
-add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS})
+
 #############
 ## Install ##
 #############
@@ -168,23 +160,16 @@ add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS})
 
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
-catkin_install_python(PROGRAMS
-   scripts/arms_pp.py
-   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
- )
-
-## Mark executables for installation
-## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
-# install(TARGETS ${PROJECT_NAME}_node
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+# install(PROGRAMS
+#   scripts/my_python_script
+#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
 
-## Mark libraries for installation
-## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_libraries.html
-# install(TARGETS ${PROJECT_NAME}
+## Mark executables and/or libraries for installation
+# install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
+#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
 
 ## Mark cpp header files for installation
@@ -193,11 +178,7 @@ catkin_install_python(PROGRAMS
 #   FILES_MATCHING PATTERN "*.h"
 #   PATTERN ".svn" EXCLUDE
 # )
-install(TARGETS ${PROJECT_NAME}
-#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
+
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 # install(FILES
 #   # myfile1
@@ -210,14 +191,10 @@ install(TARGETS ${PROJECT_NAME}
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_test_gazebo_att.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_marm_description.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-foreach (dir launch worlds)
-  install(DIRECTORY ${dir}/
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/${dir})
-endforeach(dir)
