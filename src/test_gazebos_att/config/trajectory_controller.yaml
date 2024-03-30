@@ -1,0 +1,59 @@
+arma_trajectory_controller:
+  type: "position_controllers/JointTrajectoryController"
+  joints:
+    - joint1a
+    - joint2a
+    - joint3a
+    - joint4a
+    - joint5a
+    - joint6a
+  constraints:
+      goal_time: 0.6
+      stopped_velocity_tolerance: 0.05
+      joint1a: {trajectory: 0.1, goal: 0.1}
+      joint2a: {trajectory: 0.1, goal: 0.1}
+      joint3a: {trajectory: 0.1, goal: 0.1}
+      joint4a: {trajectory: 0.1, goal: 0.1}
+      joint5a: {trajectory: 0.1, goal: 0.1}
+      joint6a: {trajectory: 0.1, goal: 0.1}
+  stop_trajectory_duration: 0.5
+  state_publish_rate:  25
+  action_monitor_rate: 10
+
+armb_trajectory_controller:
+  type: "position_controllers/JointTrajectoryController"
+  joints:
+    - joint1b
+    - joint2b
+    - joint3b
+    - joint4b
+    - joint5b
+    - joint6b
+  constraints:
+      goal_time: 0.6
+      stopped_velocity_tolerance: 0.05
+      joint1b: {trajectory: 0.1, goal: 0.1}
+      joint2b: {trajectory: 0.1, goal: 0.1}
+      joint3b: {trajectory: 0.1, goal: 0.1}
+      joint4b: {trajectory: 0.1, goal: 0.1}
+      joint5b: {trajectory: 0.1, goal: 0.1}
+      joint6b: {trajectory: 0.1, goal: 0.1}
+  stop_trajectory_duration: 0.5
+  state_publish_rate:  25
+  action_monitor_rate: 10
+
+#notice that the grippers joint2 mimics joint1
+#this is why it is not listed under the hand controllers
+handa_controller:
+  type: "position_controllers/JointTrajectoryController"
+  joints:
+    - finger_joint1a
+  gains:
+    finger_joint1a:  {p: 50.0, d: 1.0, i: 0.01, i_clamp: 1.0}
+
+handb_controller:
+  type: "position_controllers/JointTrajectoryController"
+  joints:
+    - finger_joint1b
+  gains:
+    finger_joint1b:  {p: 50.0, d: 1.0, i: 0.01, i_clamp: 1.0}

@@ -1,0 +1,58 @@
+arms:
+  # Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50  
+  
+  # Position Controllers ---------------------------------------
+  joint1a_position_controller:
+    type: position_controllers/JointPositionController
+    joint: joint1a
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  joint2a_position_controller:
+    type: position_controllers/JointPositionController
+    joint: joint2a
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  joint3a_position_controller:
+    type: position_controllers/JointPositionController
+    joint: joint3a
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  joint4a_position_controller:
+    type: position_controllers/JointPositionController
+    joint: joint4a
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  joint5a_position_controller:
+    type: position_controllers/JointPositionController
+    joint: joint5a
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  joint6a_position_controller:
+    type: position_controllers/JointPositionController
+    joint: joint6a
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  # Position Controllers ---------------------------------------
+  joint1b_position_controller:
+    type: position_controllers/JointPositionController
+    joint: joint1b
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  joint2b_position_controller:
+    type: position_controllers/JointPositionController
+    joint: joint2b
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  joint3b_position_controller:
+    type: position_controllers/JointPositionController
+    joint: joint3b
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  joint4b_position_controller:
+    type: position_controllers/JointPositionController
+    joint: joint4b
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  joint5b_position_controller:
+    type: position_controllers/JointPositionController
+    joint: joint5b
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  joint6b_position_controller:
+    type: position_controllers/JointPositionController
+    joint: joint6b
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+ 

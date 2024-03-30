@@ -1,0 +1,32 @@
+# Publish joint_states
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
+controller_manager_ns: controller_manager
+controller_list:
+  - name: arma_trajectory_controller
+    type: "position_controllers/JointTrajectoryController"
+    joints:
+      - joint1a
+      - joint2a
+      - joint3a
+      - joint4a
+      - joint5a
+      - joint6a
+  - name: handa_controller
+    type: "position_controllers/JointTrajectoryController"
+    joints:
+      - finger_joint1a
+  - name: armb_trajectory_controller
+    type: "effort_controllers/JointTrajectoryController"
+    joints:
+      - joint1b
+      - joint2b
+      - joint3b
+      - joint4b
+      - joint5b
+      - joint6b
+  - name: handb_controller
+    type: "effort_controllers/JointTrajectoryController"
+    joints:
+      - finger_joint1b

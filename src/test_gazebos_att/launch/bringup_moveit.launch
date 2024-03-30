@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- Run the main MoveIt executable with trajectory execution -->
+    <include file="$(find marmbots)/launch/move_group.launch">
+        <arg name="allow_trajectory_execution" value="true" />
+        <arg name="moveit_controller_manager" value="ros_control" />
+        <arg name="fake_execution_type" value="interpolate" />
+        <arg name="info" value="true" />
+        <arg name="debug" value="false" />
+        <arg name="pipeline" value="ompl" />
+        <arg name="load_robot_description" value="true" />
+    </include>
+
+    <!-- Start the simulated robot in an empty Gazebo world -->
+    <include file="$(find test_gazebos_att)/launch/bringup_gazebo.launch" />
+
+    <!-- Start the controllers and robot state publisher-->
+    <include file="$(find test_gazebos_att)/launch/controller_utils.launch"/>
+
+    <!-- Start moveit_rviz with the motion planning plugin -->
+    <include file="$(find marmbots)/launch/moveit_rviz.launch">
+        <arg name="rviz_config" value="$(find marmbots)/launch/moveit.rviz" />
+    </include>
+
+</launch>

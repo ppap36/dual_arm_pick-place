@@ -1,0 +1,41 @@
+arms:
+  arm_joint_controller:
+    type: "position_controllers/JointTrajectoryController"
+    joints:
+      - joint1a
+      - joint2a
+      - joint3a
+      - joint4a
+      - joint5a
+      - joint6a
+      - joint1b
+      - joint2b
+      - joint3b
+      - joint4b
+      - joint5b
+      - joint6b
+
+    gains:
+      joint1a:   {p: 1000.0, i: 0.0, d: 0.1, i_clamp: 0.0}
+      joint2a:   {p: 1000.0, i: 0.0, d: 0.1, i_clamp: 0.0}
+      joint3a:   {p: 1000.0, i: 0.0, d: 0.1, i_clamp: 0.0}
+      joint4a:   {p: 1000.0, i: 0.0, d: 0.1, i_clamp: 0.0}
+      joint5a:   {p: 1000.0, i: 0.0, d: 0.1, i_clamp: 0.0}
+      joint6a:   {p: 1000.0, i: 0.0, d: 0.1, i_clamp: 0.0}
+      joint1b:   {p: 1000.0, i: 0.0, d: 0.1, i_clamp: 0.0}
+      joint2b:   {p: 1000.0, i: 0.0, d: 0.1, i_clamp: 0.0}
+      joint3b:   {p: 1000.0, i: 0.0, d: 0.1, i_clamp: 0.0}
+      joint4b:   {p: 1000.0, i: 0.0, d: 0.1, i_clamp: 0.0}
+      joint5b:   {p: 1000.0, i: 0.0, d: 0.1, i_clamp: 0.0}
+      joint6b:   {p: 1000.0, i: 0.0, d: 0.1, i_clamp: 0.0}
+
+
+  gripper_controller:
+    type: "position_controllers/JointTrajectoryController"
+    joints:
+      - finger_joint1a
+      - finger_joint1b
+    gains:
+      finger_joint1a:  {p: 50.0, d: 1.0, i: 0.01, i_clamp: 1.0}
+      finger_joint1b:  {p: 50.0, d: 1.0, i: 0.01, i_clamp: 1.0}
+

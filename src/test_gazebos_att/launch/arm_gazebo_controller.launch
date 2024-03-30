@@ -1,0 +1,28 @@
+<launch>
+
+    <!-- 将关节控制器的配置参数加载到参数服务器中 -->
+    <rosparam file="$(find test_gazebos_att)/config/arm_gazebo_control.yaml" command="load"/>
+
+    <!-- 加载controllers -->
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+          output="screen" args="joint_state_controller
+                                          joint1a_position_controller
+                                          joint2a_position_controller
+                                          joint3a_position_controller
+                                          joint4a_position_controller
+                                          joint5a_position_controller
+                                          joint6a_position_controller
+                                          joint1b_position_controller
+                                          joint2b_position_controller
+                                          joint3b_position_controller
+                                          joint4b_position_controller
+                                          joint5b_position_controller
+                                          joint6b_position_controller"/>
+
+    <!-- 运行robot_state_publisher节点，发布tf  -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+          respawn="false" output="screen">
+        <remap from="/joint_states" to="/arm/joint_states" />
+    </node>
+
+</launch>
