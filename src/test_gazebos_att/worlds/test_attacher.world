@@ -2,7 +2,7 @@
 <sdf version="1.4">
   <world name="default">
     <!-- A gazebo links attacher -->
-    <plugin name="ros_link_attacher_plugin" filename="libtest_gazebo_att.so"/>
+    <plugin name="ros_link_attacher_plugin" filename="libtest_gazebos_att.so"/>
     <include>
       <uri>model://sun</uri>
     </include>
